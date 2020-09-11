@@ -1,14 +1,19 @@
-const dogs = [
-    { name: 'Roscoe' },
-    { name: 'Sammy' },
-    { name: 'Pookie' },
-    { name: 'Artichokes' },
-]
+const dogs = []
 
 main();
 
-function main() {
+async function main() {
+    await loadDogs();
     displayDogs();
+}
+
+async function loadDogs() {
+    const response = await fetch('/api/dogs');
+    const json = await response.json();
+
+    for (let dog of json.dogs) {
+        dogs.push(dog);
+    }
 }
 
 function displayDogs() {
